@@ -304,4 +304,4 @@ FROM website_pageviews
 	WHERE pageview_url IN ('/billing', '/billing-2')
 		AND created_at BETWEEN '2012-10-27' AND '2012-11-27';
 -- Sessions BETWEEN '2012-10-27' AND '2012-11-27' - 1156
--- According the data the revenue should be grown by 1156 x $8.45 = $9.768
+-- According the data the revenue grouth due to new lander page is 1156 x $8.45 = $9.768
