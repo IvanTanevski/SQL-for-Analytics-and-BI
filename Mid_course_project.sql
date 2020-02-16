@@ -1,9 +1,6 @@
 /*  Advanced SQL + MySQL for Analytics & Business Intelligence by Maven Analytics instructor John Pauler
     MID COURSE PROJECT 
-    All code is my own, and bit different from the solution video by the instructor. Whenever possible I tried to 
-    implement more than one solution. Some code is pretty much same, because it's made and guided from the lectures before
-    this project. Also the YEAR() function I added after watching the solution video for the project. It is not necessary for
-	obtaining correct result, but it's pretty much clearer with year extracted in the result sets before the month number. */
+*/
 
 -- Task 1: Pulling monthly trends within given time interval for gsearch sessions and orders, so the company's growth can be shown.
 SELECT YEAR(website_sessions.created_at) as 'year',
