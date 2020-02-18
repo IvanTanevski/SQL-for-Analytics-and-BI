@@ -1,4 +1,4 @@
--- Assignement 26: Pull monthly product refund rates, by product, and confirm our quality issues have been fixed.
+-- Assignment 26: Pull monthly product refund rates, by product, and confirm our quality issues have been fixed.
 
 SELECT YEAR(order_items.created_at) AS yr,
 	   MONTH(order_items.created_at) AS mo,
