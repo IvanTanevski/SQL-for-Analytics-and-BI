@@ -139,10 +139,11 @@ SELECT YEAR(subquery.first_products_page_view_time) AS yr,
        COUNT(order_id) AS orders,
        COUNT(order_id)/COUNT(first_products_page_view_id) AS conv_rate_products_to_order
 FROM (
-	SELECT table1.*, orders.order_id 
-	FROM table1 
+	SELECT click_through_products.*, orders.order_id 
+	FROM click_through_products 
 	LEFT JOIN
-		orders ON table1.website_session_id = orders.website_session_id ) AS subquery
+		orders ON click_through_products.website_session_id = orders.website_session_id ) AS subquery
 GROUP BY 1,2
 ORDER BY 1,2;
 
+select * from orders;
