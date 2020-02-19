@@ -176,10 +176,10 @@ SELECT primary_product_id,
        COUNT(CASE WHEN cross_sale_product = 2 THEN order_id ELSE NULL END) AS cross_sale_p2,
        COUNT(CASE WHEN cross_sale_product = 3 THEN order_id ELSE NULL END) AS cross_sale_p3,
        COUNT(CASE WHEN cross_sale_product = 4 THEN order_id ELSE NULL END) AS cross_sale_p4,
-       COUNT(CASE WHEN cross_sale_product = 1 THEN order_id ELSE NULL END)/COUNT(order_id) as p1_cross_sale_rate,
-       COUNT(CASE WHEN cross_sale_product = 2 THEN order_id ELSE NULL END)/COUNT(order_id) as p2_cross_sale_rate,
-       COUNT(CASE WHEN cross_sale_product = 3 THEN order_id ELSE NULL END)/COUNT(order_id) as p3_cross_sale_rate,
-       COUNT(CASE WHEN cross_sale_product = 4 THEN order_id ELSE NULL END)/COUNT(order_id) as p4_cross_sale_rate
-from primary_and_cross_sale_products
-group by 1;
+       COUNT(CASE WHEN cross_sale_product = 1 THEN order_id ELSE NULL END)/COUNT(order_id) AS p1_cross_sale_rate,
+       COUNT(CASE WHEN cross_sale_product = 2 THEN order_id ELSE NULL END)/COUNT(order_id) AS p2_cross_sale_rate,
+       COUNT(CASE WHEN cross_sale_product = 3 THEN order_id ELSE NULL END)/COUNT(order_id) AS p3_cross_sale_rate,
+       COUNT(CASE WHEN cross_sale_product = 4 THEN order_id ELSE NULL END)/COUNT(order_id) AS p4_cross_sale_rate
+FROM primary_and_cross_sale_products
+GROUP BY 1;
 
