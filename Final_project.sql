@@ -146,4 +146,40 @@ FROM (
 GROUP BY 1,2
 ORDER BY 1,2;
 
-select * from orders;
+/* Task 7: We made our 4th product available as a primary product on December 05, 2014 (it was previously only a cross sell
+   item). Could you please pull sales data since then, and show how well each product cross-sells from another.? */
+   
+/* Step 1: Creating temporary table with order_id, primary_product_id and cross_sale product. We extract the cross sale product
+   from left join the order_items table on order_id and the cross_sale_product not to be the primary item per that order_id
+   within the specified given time period. */
+DROP TABLE IF EXISTS primary_and_cross_sale_products;
+CREATE TEMPORARY TABLE primary_and_cross_sale_products
+SELECT subquery.order_id, 
+	   subquery.primary_product_id, 
+       order_items.product_id AS cross_sale_product
+FROM (
+SELECT primary_product_id,
+	   order_id
+FROM orders
+WHERE created_at > '2014-12-05'
+) AS subquery
+	LEFT JOIN order_items ON subquery.order_id = order_items.order_id
+    AND order_items.is_primary_item = 0;
+    
+SELECT * FROM primary_and_cross_sale_products; -- Checking the temp table and its fields, so we can summarize the metrics in the query below.
+
+/* Step 2: Summarizing orders grouped by primary product, then we use count in case pivot method to count the cross_sell products per each primary
+   product. Next, we also count the relative cross sales product items per each product.*/
+SELECT primary_product_id, 
+	   COUNT(order_id) as orders,
+       COUNT(CASE WHEN cross_sale_product = 1 THEN order_id ELSE NULL END) AS cross_sale_p1,
+       COUNT(CASE WHEN cross_sale_product = 2 THEN order_id ELSE NULL END) AS cross_sale_p2,
+       COUNT(CASE WHEN cross_sale_product = 3 THEN order_id ELSE NULL END) AS cross_sale_p3,
+       COUNT(CASE WHEN cross_sale_product = 4 THEN order_id ELSE NULL END) AS cross_sale_p4,
+       COUNT(CASE WHEN cross_sale_product = 1 THEN order_id ELSE NULL END)/COUNT(order_id) as p1_cross_sale_rate,
+       COUNT(CASE WHEN cross_sale_product = 2 THEN order_id ELSE NULL END)/COUNT(order_id) as p2_cross_sale_rate,
+       COUNT(CASE WHEN cross_sale_product = 3 THEN order_id ELSE NULL END)/COUNT(order_id) as p3_cross_sale_rate,
+       COUNT(CASE WHEN cross_sale_product = 4 THEN order_id ELSE NULL END)/COUNT(order_id) as p4_cross_sale_rate
+from primary_and_cross_sale_products
+group by 1;
+
